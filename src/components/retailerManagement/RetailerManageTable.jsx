@@ -261,7 +261,7 @@ const RetailerManageTable = () => {
         </div>
       </div>
 
-      <div className="bg-primary p-5 rounded-lg">
+      <div className="bg-primary p-5 rounded-lg overflow-x-auto">
         <Table
           dataSource={filteredRetailers}
           columns={columns}
@@ -270,6 +270,7 @@ const RetailerManageTable = () => {
           size="small"
           rowClassName="custom-row"
           rowKey="id"
+          scroll={{ x: 'max-content' }}
         />
       </div>
 

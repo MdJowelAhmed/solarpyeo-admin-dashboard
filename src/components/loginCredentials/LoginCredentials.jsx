@@ -290,16 +290,19 @@ const LoginCredentials = () => {
         </div>
       </div>
 
-      <Table
-        dataSource={data}
-        columns={columns}
-        pagination={{ pageSize: 10 }}
-        bordered={false}
-        size="small"
-        rowClassName="custom-row"
-        components={components}
-        className="custom-table"
-      />
+      <div className="overflow-x-auto">
+        <Table
+          dataSource={data}
+          columns={columns}
+          pagination={{ pageSize: 10 }}
+          bordered={false}
+          size="small"
+          rowClassName="custom-row"
+          components={components}
+          className="custom-table"
+          scroll={{ x: 'max-content' }}
+        />
+      </div>
 
       {/* View/Edit User Modal */}
       <Modal

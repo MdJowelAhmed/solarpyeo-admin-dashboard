@@ -404,7 +404,7 @@ const UserManagement = () => {
       </div>
 
       {/* Table */}
-      <div >
+      <div style={{ overflowX: 'auto' }}>
         <Table
           columns={columns}
           dataSource={getFilteredUsers()}
@@ -421,7 +421,7 @@ const UserManagement = () => {
           scroll={{ x: "max-content" }}
           // style={{ borderRadius: "8px" }}
           className="custom-table"
-
+  //  scroll={{ x: 'max-content' }}
         />
       </div>
 

@@ -301,3 +301,15 @@ select {
 .custom-dropdown .ant-select-item {
   border-radius: 8px;
 }
+
+
+/* Table Responsive Scroll for Mobile */
+.responsive-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* smooth scroll for iOS */
+}
+
+.responsive-table-wrapper .ant-table {
+  min-width: 700px; /* adjust based on your table's minimum width */
+}

@@ -51,9 +51,8 @@ import PushNotifications from "../components/pushNotifications/PushNotifications
 import SignUp from "../Pages/Auth/SignUp";
 import OtpVerification from "../Pages/Auth/OtpVerification";
 import ShopInfo from "../Pages/Auth/ShopInfo";
-import SubscriptionManagement from "../components/subscriptionManagement/SubscriptionManagement";
 import TotalEarnings from "../components/TotalEarnings/TotalEarnings";
-import SubmissionManagement from "../components/subscriptionManagement/SubscriptionManagement";
+import SubmissionManagementCom from "../components/subscriptionManagement/extra/SubmissionManagement";
 // import SalesRepsManagementTable from "../components/SalesRepsManagement/SalesRepsManagement";
 
 const router = createBrowserRouter([
@@ -86,7 +85,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/submissionManagement",
-        element: <SubmissionManagement />,
+        element: <SubmissionManagementCom />,
       },
       {
         path: "/totalEarnings",

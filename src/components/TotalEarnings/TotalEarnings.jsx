@@ -277,7 +277,7 @@ const TotalEarnings = () => {
       </div>
 
       {/* Earnings Table */}
-  
+      <div style={{ overflowX: 'auto' }}>
         <Table
           components={components}
           columns={columns}
@@ -290,7 +290,7 @@ const TotalEarnings = () => {
             // showTotal: (total, range) =>
             //   `${range[0]}-${range[1]} of ${total} items`,
           }}
-          scroll={{ x: 1200 }}
+          scroll={{ x: 'max-content' }}
           // rowSelection={{
           //   type: 'checkbox',
           //   onChange: (selectedRowKeys, selectedRows) => {
@@ -300,6 +300,7 @@ const TotalEarnings = () => {
           className="custom-table"
 
         />
+      </div>
   
     </div>
   );

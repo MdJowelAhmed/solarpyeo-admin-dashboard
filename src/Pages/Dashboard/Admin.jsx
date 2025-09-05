@@ -45,7 +45,9 @@ const Admin = () => {
             </div>
 
             {/* table container */}
-            <Table columns={columns} pagination={false}/>
+            <div className="overflow-x-auto">
+                <Table columns={columns} pagination={false} scroll={{ x: 'max-content' }}/>
+            </div>
         </div>
     )
 }

@@ -319,18 +319,11 @@ export default function MonthlyStatsChart() {
   ];
 
   return (
-    <div style={{ width: "100%", padding: "1rem" }}>
+    <div className="w-full p-4 max-w-full overflow-hidden">
       {/* Dropdowns */}
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          marginBottom: "1rem",
-          flexWrap: "wrap",
-        }}
-      >
+      <div className="flex flex-wrap gap-4 mb-4 items-center">
         <RangePicker
-          style={{ width: 250 }}
+          className="min-w-[200px] sm:w-[250px]"
           placeholder={['Start Date', 'End Date']}
           onChange={setDateRange}
           format="MMM YYYY"
@@ -338,7 +331,7 @@ export default function MonthlyStatsChart() {
 
         <Select
           value={selectedMonthYear}
-          style={{ width: 150 }}
+          className="min-w-[120px] sm:w-[150px]"
           onChange={setSelectedMonthYear}
         >
           <Option value="All Months">All Months</Option>
@@ -351,7 +344,7 @@ export default function MonthlyStatsChart() {
 
         <Select
           value={selectedCategory}
-          style={{ width: 150 }}
+          className="min-w-[120px] sm:w-[150px]"
           onChange={setSelectedCategory}
         >
           {categoryOptions.map((option) => (
@@ -363,7 +356,7 @@ export default function MonthlyStatsChart() {
 
         <Select
           value={selectedRegion}
-          style={{ width: 150 }}
+          className="min-w-[120px] sm:w-[150px]"
           onChange={setSelectedRegion}
         >
           {regionOptions.map((option) => (
@@ -375,7 +368,7 @@ export default function MonthlyStatsChart() {
 
         <Select
           value={selectedMetric}
-          style={{ width: 150 }}
+          className="min-w-[120px] sm:w-[150px]"
           onChange={setSelectedMetric}
         >
           <Option value="all">All Metrics</Option>
@@ -388,7 +381,7 @@ export default function MonthlyStatsChart() {
 
         <Select
           value={chartType}
-          style={{ width: 150 }}
+          className="min-w-[120px] sm:w-[150px]"
           onChange={setChartType}
         >
           <Option value="Bar">Bar Chart</Option>
@@ -400,10 +393,7 @@ export default function MonthlyStatsChart() {
       </div>
 
       {/* Chart */}
-      <div
-        className="p-4 rounded-lg border"
-        style={{ width: "100%", height: 400, marginTop: "40px" }}
-      >
+      <div className="p-4 rounded-lg border w-full mt-10 overflow-x-auto" style={{ height: 400 }}>
         <ResponsiveContainer>
           {chartType === "Bar" ? (
             <BarChart
@@ -505,28 +495,36 @@ export default function MonthlyStatsChart() {
       </div>
 
       {/* Ant Design Table */}
-      <div style={{ marginTop: "50px" }}>
-        <h1 className="text-[22px] font-bold mb-2">Data Table</h1>
-        <Table
-          bordered={false}
-          size="small"
-          rowClassName="custom-row"
-          components={components}
-          className="custom-table"
-          columns={columns.filter(
-            (col) =>
-              col.dataIndex === "date" ||
-              col.dataIndex === "category" ||
-              col.dataIndex === "region" ||
-              selectedMetric === "all" ||
-              col.dataIndex === selectedMetric
-          )}
-          dataSource={filteredData.map((row, index) => ({
-            ...row,
-            key: index,
-          }))}
-          pagination={{ pageSize: 6 }}
-        />
+      <div className="mt-12">
+        <h1 className="text-lg sm:text-xl lg:text-[22px] font-bold mb-4">Data Table</h1>
+        <div className="overflow-x-auto bg-white rounded-lg shadow-sm">
+          <Table
+            bordered={false}
+            size="small"
+            rowClassName="custom-row"
+            components={components}
+            className="custom-table min-w-full"
+            scroll={{ x: 'max-content' }}
+            columns={columns.filter(
+              (col) =>
+                col.dataIndex === "date" ||
+                col.dataIndex === "category" ||
+                col.dataIndex === "region" ||
+                selectedMetric === "all" ||
+                col.dataIndex === selectedMetric
+            )}
+            dataSource={filteredData.map((row, index) => ({
+              ...row,
+              key: index,
+            }))}
+            pagination={{ 
+              pageSize: 6,
+              showSizeChanger: false,
+              showQuickJumper: false,
+              responsive: true
+            }}
+          />
+        </div>
       </div>
     </div>
   );

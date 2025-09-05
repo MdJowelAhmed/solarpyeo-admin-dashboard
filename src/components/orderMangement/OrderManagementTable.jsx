@@ -245,7 +245,7 @@ const OrderManagementTable = () => {
         </div>
       </div>
 
-      <div className="px-6 pt-6 rounded-lg bg-gradient-to-r from-primary to-secondary">
+      <div className="px-6 pt-6 rounded-lg bg-gradient-to-r from-primary to-secondary overflow-x-auto">
         <Table
           dataSource={filteredOrders}
           columns={columns}
@@ -253,6 +253,7 @@ const OrderManagementTable = () => {
           bordered={false}
           size="small"
           rowClassName="custom-table"
+          scroll={{ x: 'max-content' }}
         />
       </div>
 

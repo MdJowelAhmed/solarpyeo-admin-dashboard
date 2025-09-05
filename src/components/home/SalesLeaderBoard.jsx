@@ -139,7 +139,7 @@ const SalesLeaderBoard = () => {
         /> */}
       </div>
       {/* Table Container with Gradient Background */}
-      <div className="px-6 pt-6 rounded-lg bg-gradient-to-r from-primary to-secondary">
+      <div className="px-6 pt-6 rounded-lg bg-gradient-to-r from-primary to-secondary overflow-x-auto">
         <Table
           dataSource={filteredData}
           columns={columns}
@@ -147,6 +147,7 @@ const SalesLeaderBoard = () => {
           bordered={false}
           size="small"
           rowClassName="custom-table"
+          scroll={{ x: 'max-content' }}
         />
       </div>
     </div>

@@ -250,7 +250,7 @@ const SalesManagementTable = () => {
   return (
     <div className="">
       <h2 className="text-2xl font-bold my-6">All Sales </h2>
-      <div className="px-6 pt-6 rounded-lg bg-gradient-to-r from-primary to-secondary">
+      <div className="px-6 pt-6 rounded-lg bg-gradient-to-r from-primary to-secondary overflow-x-auto">
         <Table
           dataSource={data}
           columns={columns}
@@ -258,6 +258,7 @@ const SalesManagementTable = () => {
           bordered={false}
           size="small"
           className="custom-table" // Custom class for adding borders
+          scroll={{ x: 'max-content' }}
         />
         {/* Render the modal with the selected order data */}
         <DetailsModal

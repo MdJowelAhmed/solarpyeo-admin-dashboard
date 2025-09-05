@@ -284,17 +284,20 @@ const SalesRepPortal = () => {
         </div>
       </div>
 
-      <Table
-        dataSource={data}
-        columns={columns}
-        pagination={{ pageSize: 10 }}
-        bordered={false}
-        size="small"
-        rowClassName="custom-row"
-        components={components}
-        className="custom-table"
-        rowKey="id"
-      />
+      <div className="overflow-x-auto">
+        <Table
+          dataSource={data}
+          columns={columns}
+          pagination={{ pageSize: 10 }}
+          bordered={false}
+          size="small"
+          rowClassName="custom-row"
+          components={components}
+          className="custom-table"
+          rowKey="id"
+          scroll={{ x: 'max-content' }}
+        />
+      </div>
 
       {/* New Campaign Modal */}
       <Modal

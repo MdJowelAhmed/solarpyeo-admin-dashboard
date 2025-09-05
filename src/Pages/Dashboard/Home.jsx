@@ -104,7 +104,7 @@ const Home = () => {
     <div className="p-2 md:p-4 space-y-4 md:space-y-6">
       <div className="flex flex-col xl:flex-row gap-10 rounded-lg">
         {/* Pie Chart Section */}
-        <div className="border border-primary rounded-lg w-2/3">
+        <div className="border border-primary rounded-lg xl:w-2/3">
 
           <RevenueLineChart />
         </div>
