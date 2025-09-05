@@ -150,7 +150,7 @@ const Home = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 h-auto">
             <div className="bg-white border border-primary rounded-lg flex items-center justify-center p-4">
               <div className="flex flex-col items-baseline">
-                <h2 className="text-[16px] font-semibold mb-1">Total Report Submit</h2>
+                <h2 className="text-[16px] font-semibold mb-1">Total Report Accept</h2>
                 <h3 className="text-secondary text-[24px] font-semibold flex items-center gap-3">
                   <Sales className="w-[20px] h-[20px] text-secondary" />
                   $4000
@@ -161,7 +161,7 @@ const Home = () => {
             <div className="bg-white border border-primary rounded-lg flex items-center justify-center p-4">
               <div className="flex flex-col items-baseline">
                 <h2 className="text-[16px] font-semibold mb-1">
-                  Total User
+                  Total Complete
                 </h2>
                 <h3 className="text-secondary text-[24px] font-semibold flex items-center gap-3">
                   <People className="w-[20px] h-[20px] text-secondary" />
