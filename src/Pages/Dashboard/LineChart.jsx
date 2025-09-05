@@ -57,18 +57,18 @@ const formatYAxisLabel = (value) => {
 
 const RevenueLineChart = () => {
   return (
-    <div className="w-full max-w-6xl mx-auto ">
-      <Card 
+    <div className="w-full max-w-6xl mx-auto">
+      <div 
         className="shadow-lg border border-gray-200 rounded-lg"
         bodyStyle={{ padding: '16px' }}
       >
-        <div className="">
+        <div className="p-6">
           <Title level={4} className="text-gray-800 font-semibold mb-0">
             Total Revenue
           </Title>
         </div>
         
-        <div className="h-52 w-full">
+        <div className="h-60 w-full ">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={revenueData}
@@ -118,8 +118,18 @@ const RevenueLineChart = () => {
           </ResponsiveContainer>
         </div>
         
-     
-      </Card>
+        {/* Legend for highlighted points */}
+        {/* <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-600">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3  rounded-full"></div>
+            <span>Peak Revenue Points</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-1 bg-gray-800 rounded"></div>
+            <span>Monthly Revenue Trend</span>
+          </div>
+        </div> */}
+      </div>
     </div>
   );
 };
