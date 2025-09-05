@@ -311,8 +311,8 @@ export default function MonthlyStatsChart() {
 
   const columns = [
     { title: "Date", dataIndex: "date", key: "date" },
-    { title: "Category", dataIndex: "category", key: "category" },
-    { title: "Region", dataIndex: "region", key: "region" },
+    // { title: "Category", dataIndex: "category", key: "category" },
+    // { title: "Region", dataIndex: "region", key: "region" },
     { title: "Revenue", dataIndex: "revenue", key: "revenue" },
     { title: "Users", dataIndex: "users", key: "users" },
     { title: "Submission", dataIndex: "submission", key: "submission" },
