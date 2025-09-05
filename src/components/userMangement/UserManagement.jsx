@@ -382,9 +382,9 @@ const UserManagement = () => {
             style={{ width: "200px" }}
             size="large"
           >
-            <Option value="All User">🔽 All User</Option>
-            <Option value="Active">Active Users</Option>
-            <Option value="Inactive">Inactive Users</Option>
+            <Option value="All User"> All User</Option>
+            <Option value="Active">Active </Option>
+            <Option value="Inactive">Inactive </Option>
           </Select>
         </div>
         
@@ -393,8 +393,8 @@ const UserManagement = () => {
           size="large"
           onClick={() => setAddModalVisible(true)}
           style={{ 
-            backgroundColor: "#ff4d4f", 
-            borderColor: "#ff4d4f",
+            backgroundColor: "#B91C1C", 
+            borderColor: "primary",
             padding: "0 32px",
             borderRadius: "6px"
           }}
@@ -404,12 +404,7 @@ const UserManagement = () => {
       </div>
 
       {/* Table */}
-      <div style={{ 
-        backgroundColor: "white", 
-        borderRadius: "8px", 
-        boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        border: "1px solid #e8e8e8"
-      }}>
+      <div >
         <Table
           columns={columns}
           dataSource={getFilteredUsers()}
@@ -417,14 +412,16 @@ const UserManagement = () => {
           pagination={{
             ...pagination,
             size: "default",
-            showSizeChanger: false,
-            showQuickJumper: true,
-            showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+            // showSizeChanger: false,
+            // showQuickJumper: true,
+            // showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
           }}
           loading={loading}
           size="large"
           scroll={{ x: "max-content" }}
-          style={{ borderRadius: "8px" }}
+          // style={{ borderRadius: "8px" }}
+          className="custom-table"
+
         />
       </div>
 

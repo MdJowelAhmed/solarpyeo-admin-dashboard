@@ -49,10 +49,10 @@ const Header = () => {
   return (
     <div className="flex items-center justify-between gap-5 w-full px-4 rounded-md lg:px-10 shadow-sm py-2 bg-white border-b border-gray-200">
       <div className="py-2">
-        <h2 className="font-bold text-xl text-secondary">Burger King</h2>
-        <p className="text-[12px] font-normal text-secondary mt-1">
+        <h2 className="font-bold text-xl text-secondary">Admin Dashboard</h2>
+        {/* <p className="text-[12px] font-normal text-secondary mt-1">
           36 East 8th Street, New York, NY 10003, United States.
-        </p>
+        </p> */}
       </div>
       <div className="flex items-center gap-5">
         {/* Profile Icon with Dropdown Menu */}

@@ -37,7 +37,7 @@ const Main = () => {
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto pt-16 mt-3">
-          <div className="bg-baseBg rounded-md p-7 pt-0">
+          <div className=" rounded-md p-7 pt-0">
             <div className="mt-6">
               <Outlet />
             </div>

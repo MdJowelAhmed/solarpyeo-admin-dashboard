@@ -277,7 +277,7 @@ const TotalEarnings = () => {
       </div>
 
       {/* Earnings Table */}
-      <Card>
+  
         <Table
           components={components}
           columns={columns}
@@ -285,20 +285,22 @@ const TotalEarnings = () => {
           rowKey="id"
           pagination={{
             pageSize: 10,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total, range) =>
-              `${range[0]}-${range[1]} of ${total} items`,
+            // showSizeChanger: true,
+            // showQuickJumper: true,
+            // showTotal: (total, range) =>
+            //   `${range[0]}-${range[1]} of ${total} items`,
           }}
           scroll={{ x: 1200 }}
-          rowSelection={{
-            type: 'checkbox',
-            onChange: (selectedRowKeys, selectedRows) => {
-              console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            },
-          }}
+          // rowSelection={{
+          //   type: 'checkbox',
+          //   onChange: (selectedRowKeys, selectedRows) => {
+          //     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+          //   },
+          // }}
+          className="custom-table"
+
         />
-      </Card>
+  
     </div>
   );
 };
