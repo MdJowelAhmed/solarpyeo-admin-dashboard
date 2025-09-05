@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import dayjs from "dayjs";
 import {
   BarChart,
   Bar,
@@ -13,11 +14,12 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Table, Select, Button } from "antd";
+import { Table, Select, Button, DatePicker } from "antd";
 import "antd/dist/reset.css";
 import { Filter } from "../../components/common/Svg"; // Import the relevant SVGs
 
 const { Option } = Select;
+const { RangePicker } = DatePicker;
 
 const components = {
   header: {
@@ -54,98 +56,122 @@ const data = [
   {
     date: "Jan 2025",
     category: "Employee",
-    // region: "USA",
+    region: "USA",
     revenue: 100,
     users: 65,
-    profit: 32,
+    submission: 32,
   },
   {
     date: "Feb 2025",
     category: "Employee",
-    // region: "USA",
+    region: "USA",
     revenue: 75,
     users: 60,
-    profit: 27,
+    submission: 27,
   },
   {
     date: "Mar 2025",
     category: "Employee",
-    // region: "USA",
+    region: "USA",
     revenue: 50,
     users: 62,
-    profit: 22,
+    submission: 22,
   },
   {
     date: "Apr 2025",
     category: "Employee",
-    // region: "UK",
+    region: "UK",
     revenue: 69,
     users: 54,
-    profit: 29,
+    submission: 29,
   },
   {
     date: "May 2025",
     category: "Employee",
-    // region: "UK",
+    region: "UK",
     revenue: 47,
     users: 59,
-    profit: 24,
+    submission: 24,
   },
   {
     date: "Jun 2025",
     category: "Employee",
-    // region: "UK",
+    region: "UK",
     revenue: 60,
     users: 68,
-    profit: 37,
+    submission: 37,
   },
   {
     date: "Jul 2025",
     category: "Employee",
-    // region: "USA",
+    region: "USA",
     revenue: 88,
     users: 57,
-    profit: 45,
+    submission: 45,
   },
   {
     date: "Aug 2025",
     category: "Employee",
-    // region: "USA",
+    region: "USA",
     revenue: 88,
     users: 57,
-    profit: 45,
+    submission: 45,
   },
   {
     date: "Sep 2025",
     category: "Customer",
-    // region: "UK",
+    region: "UK",
     revenue: 38,
     users: 57,
-    profit: 100,
+    submission: 100,
   },
   {
     date: "Oct 2025",
     category: "Customer",
-    // region: "UK",
+    region: "UK",
     revenue: 88,
     users: 57,
-    profit: 45,
+    submission: 45,
   },
   {
     date: "Nov 2025",
     category: "Customer",
-    // region: "USA",
+    region: "USA",
     revenue: 88,
     users: 57,
-    profit: 45,
+    submission: 45,
   },
   {
     date: "Dec 2025",
     category: "Customer",
-    // region: "USA",
+    region: "USA",
     revenue: 88,
     users: 57,
-    profit: 45,
+    submission: 45,
+  },
+  {
+    date: "Jan 2026",
+    category: "Partner",
+    region: "Canada",
+    revenue: 95,
+    users: 72,
+    submission: 38,
+  },
+  {
+    date: "Feb 2026",
+    category: "Partner",
+    region: "Canada",
+    revenue: 82,
+    users: 68,
+    submission: 41,
+  },
+  {
+    date: "Mar 2026",
+    category: "Vendor",
+    region: "Australia",
+    revenue: 76,
+    users: 63,
+    submission: 35,
   },
 ];
 
@@ -155,13 +181,13 @@ const categoryOptions = [
   "All Categories",
   ...new Set(data.map((d) => d.category)),
 ];
-// const regionOptions = ["All Regions", ...new Set(data.map((d) => d.region))];
-const metricOptions = ["revenue", "users", "profit"];
+const regionOptions = ["All Regions", ...new Set(data.map((d) => d.region))];
+const metricOptions = ["revenue", "users", "submission"];
 
 const maxValues = {
   revenue: Math.max(...data.map((d) => d.revenue)),
   users: Math.max(...data.map((d) => d.users)),
-  profit: Math.max(...data.map((d) => d.profit)),
+  submission: Math.max(...data.map((d) => d.submission)),
 };
 
 // Custom 3D Bar with watermark
@@ -237,22 +263,59 @@ export default function MonthlyStatsChart() {
   const [selectedRegion, setSelectedRegion] = useState("All Regions");
   const [selectedMetric, setSelectedMetric] = useState("all");
   const [chartType, setChartType] = useState("Bar");
+  const [dateRange, setDateRange] = useState(null);
+
+  const exportToCSV = () => {
+    const headers = ['Date', 'Category', 'Region', 'Revenue', 'Users', 'Submission'];
+    const csvContent = [
+      headers.join(','),
+      ...filteredData.map(row => 
+        [row.date, row.category, row.region, row.revenue, row.users, row.submission].join(',')
+      )
+    ].join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `analytics-report-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const filteredData = useMemo(() => {
-    return data.filter(
-      (d) =>
-        (selectedCategory === "All Categories" ||
-          d.category === selectedCategory) &&
-        // (selectedRegion === "All Regions" || d.region === selectedRegion) &&
-        (selectedMonthYear === "All Months" || d.date === selectedMonthYear)
-    );
-  }, [selectedCategory, selectedRegion, selectedMonthYear]);
+    return data.filter((d) => {
+      // Category filter
+      const categoryMatch = selectedCategory === "All Categories" || d.category === selectedCategory;
+      
+      // Region filter
+      const regionMatch = selectedRegion === "All Regions" || d.region === selectedRegion;
+      
+      // Month/Year filter
+      const monthYearMatch = selectedMonthYear === "All Months" || d.date === selectedMonthYear;
+      
+      // Date range filter
+      let dateRangeMatch = true;
+      if (dateRange && dateRange[0] && dateRange[1]) {
+        const itemDate = dayjs(d.date, "MMM YYYY");
+        const startDate = dayjs(dateRange[0]);
+        const endDate = dayjs(dateRange[1]);
+        dateRangeMatch = itemDate.isBetween(startDate, endDate, 'month', '[]');
+      }
+      
+      return categoryMatch && regionMatch && monthYearMatch && dateRangeMatch;
+    });
+  }, [selectedCategory, selectedRegion, selectedMonthYear, dateRange]);
 
   const columns = [
     { title: "Date", dataIndex: "date", key: "date" },
+    { title: "Category", dataIndex: "category", key: "category" },
+    { title: "Region", dataIndex: "region", key: "region" },
     { title: "Revenue", dataIndex: "revenue", key: "revenue" },
     { title: "Users", dataIndex: "users", key: "users" },
-    { title: "Submission", dataIndex: "profit", key: "profit" },
+    { title: "Submission", dataIndex: "submission", key: "submission" },
   ];
 
   return (
@@ -266,6 +329,13 @@ export default function MonthlyStatsChart() {
           flexWrap: "wrap",
         }}
       >
+        <RangePicker
+          style={{ width: 250 }}
+          placeholder={['Start Date', 'End Date']}
+          onChange={setDateRange}
+          format="MMM YYYY"
+        />
+
         <Select
           value={selectedMonthYear}
           style={{ width: 150 }}
@@ -279,7 +349,7 @@ export default function MonthlyStatsChart() {
           ))}
         </Select>
 
-        {/* <Select
+        <Select
           value={selectedCategory}
           style={{ width: 150 }}
           onChange={setSelectedCategory}
@@ -289,9 +359,19 @@ export default function MonthlyStatsChart() {
               {option}
             </Option>
           ))}
-        </Select> */}
+        </Select>
 
-
+        <Select
+          value={selectedRegion}
+          style={{ width: 150 }}
+          onChange={setSelectedRegion}
+        >
+          {regionOptions.map((option) => (
+            <Option key={option} value={option}>
+              {option}
+            </Option>
+          ))}
+        </Select>
 
         <Select
           value={selectedMetric}
@@ -316,7 +396,7 @@ export default function MonthlyStatsChart() {
           <Option value="Area">Area Chart</Option>
         </Select>
 
-        <Button className="bg-primary text-white">Export Report</Button>
+        <Button className="bg-primary text-white" onClick={exportToCSV}>Export Report</Button>
       </div>
 
       {/* Chart */}
@@ -355,12 +435,12 @@ export default function MonthlyStatsChart() {
                   )}
                 />
               )}
-              {(selectedMetric === "all" || selectedMetric === "profit") && (
+              {(selectedMetric === "all" || selectedMetric === "submission") && (
                 <Bar
-                  dataKey="profit"
+                  dataKey="submission"
                   fill="#FFAE4C"
                   shape={(props) => (
-                    <Custom3DBarWithWatermark {...props} dataKey="profit" />
+                    <Custom3DBarWithWatermark {...props} dataKey="submission" />
                   )}
                 />
               )}
@@ -381,8 +461,8 @@ export default function MonthlyStatsChart() {
               {(selectedMetric === "all" || selectedMetric === "users") && (
                 <Line type="monotone" dataKey="users" stroke="#6FD195" />
               )}
-              {(selectedMetric === "all" || selectedMetric === "profit") && (
-                <Line type="monotone" dataKey="profit" stroke="#FFAE4C" />
+              {(selectedMetric === "all" || selectedMetric === "submission") && (
+                <Line type="monotone" dataKey="submission" stroke="#FFAE4C" />
               )}
             </LineChart>
           ) : (
@@ -411,10 +491,10 @@ export default function MonthlyStatsChart() {
                   fill="#6FD195"
                 />
               )}
-              {(selectedMetric === "all" || selectedMetric === "profit") && (
+              {(selectedMetric === "all" || selectedMetric === "submission") && (
                 <Area
                   type="monotone"
-                  dataKey="profit"
+                  dataKey="submission"
                   stroke="#FFAE4C"
                   fill="#FFAE4C"
                 />
@@ -435,7 +515,11 @@ export default function MonthlyStatsChart() {
           className="custom-table"
           columns={columns.filter(
             (col) =>
-              selectedMetric === "all" || col.dataIndex === selectedMetric
+              col.dataIndex === "date" ||
+              col.dataIndex === "category" ||
+              col.dataIndex === "region" ||
+              selectedMetric === "all" ||
+              col.dataIndex === selectedMetric
           )}
           dataSource={filteredData.map((row, index) => ({
             ...row,
