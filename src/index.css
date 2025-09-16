@@ -27,12 +27,12 @@
 
 /* Hover effect - change text color to white and background gradient */
 .ant-menu-item:hover {
-  background: #B91C1C !important;
+  background: #b91c1c !important;
   color: white !important; /* Text color to white */
 }
 
 .ant-menu-item-selected {
-  background: #B91C1C !important;
+  background: #b91c1c !important;
   color: white !important;
   font-weight: bold;
   border-radius: 8px 0 0 8px !important;
@@ -49,7 +49,7 @@
 
 /* Ant Design Badge */
 .ant-badge .ant-badge-count {
-  background: #B91C1C !important;
+  background: #b91c1c !important;
   color: white !important;
 }
 
@@ -70,7 +70,7 @@
 
 /* Custom table styling */
 .custom-table {
-  border: 1px solid #B91C1C;
+  border: 1px solid #b91c1c;
   border-radius: 10px;
 }
 .custom-table .ant-table-tbody > tr > td {
@@ -82,11 +82,11 @@
 }
 
 .custom-table .ant-table-thead > tr > th {
-  border-bottom: 2px solid #B91C1C;
+  border-bottom: 2px solid #b91c1c;
 }
 
 .custom-table .ant-table-thead > tr > th {
-  background-color: #B91C1C !important;
+  background-color: #b91c1c !important;
   color: white !important;
   border-bottom: 2px solid #ddd;
 }
@@ -113,7 +113,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .custom-tooltip .ant-tooltip-inner {
-  background: #B91C1C !important;
+  background: #b91c1c !important;
   color: white;
 }
 
@@ -174,7 +174,7 @@ input[type="number"]::-webkit-inner-spin-button {
   overflow-y: auto;
   padding: 0 0 0 5px;
   /* border-radius: 5%; */
-  border-top: 1px solid #B91C1C;
+  border-top: 1px solid #b91c1c;
 }
 
 .sidebar-menu {
@@ -188,7 +188,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .sidebar-menu .ant-menu-item:hover {
-  background-color: #B91C1C !important; /* Hover effect */
+  background-color: #b91c1c !important; /* Hover effect */
 }
 
 .sidebar-menu .ant-menu-item-selected {
@@ -221,6 +221,14 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .menu-container::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.responsive-table .ant-table {
+  border-radius: 10px; /* Adjust as needed */
+  overflow: hidden; /* Ensures inner content respects border-radius */
+}
+.responsive-table .ant-table-container {
+  border-radius: 10px;
 }
 
 /* Add this to your global CSS file */
@@ -301,7 +309,6 @@ select {
 .custom-dropdown .ant-select-item {
   border-radius: 8px;
 }
-
 
 /* Table Responsive Scroll for Mobile */
 .responsive-table-wrapper {

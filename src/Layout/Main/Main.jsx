@@ -18,29 +18,23 @@ const Main = () => {
   }, []);
 
   return (
-    <div className="h-screen w-screen flex bg-baseBg overflow-hidden">
-      {/* Fixed Sidebar */}
-      <div className="fixed left-0 top-0 h-full z-10">
-        <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+    <div className="grid grid-cols-12 h-screen">
+      {/* Sidebar */}
+      <div className="col-span-2 h-full bg-primary overflow-y-auto">
+        <Sidebar />
       </div>
 
-      {/* Main Content Area */}
-      <div 
-        className="flex-1 flex flex-col h-screen transition-all duration-300"
-        style={{ marginLeft: collapsed ? 80 : 250 }}
-      >
-        {/* Fixed Header */}
-        <div className="fixed top-0 right-0 z-10 transition-all duration-300" 
-             style={{ left: collapsed ? 80 : 250 }}>
-          <Header toggleSidebar={() => setCollapsed(!collapsed)} />
+      {/* Main Content */}
+      <div className="col-span-10 flex flex-col">
+        {/* Header */}
+        <div className="h-[68px] bg-white flex items-center justify-end pr-5">
+          <Header />
         </div>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto pt-16 mt-3">
-          <div className=" rounded-md p-7 pt-0">
-            <div className="mt-6">
-              <Outlet />
-            </div>
+        <div className="flex-1 overflow-auto p-7 bg-white rounded-t-3xl">
+          <div className="min-w-full overflow-x-auto">
+            <Outlet />
           </div>
         </div>
       </div>

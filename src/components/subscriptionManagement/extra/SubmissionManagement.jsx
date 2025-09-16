@@ -235,19 +235,21 @@ const SubmissionManagementCom = () => {
       </div>
 
       {/* Table */}
-      <div className="responsive-table">
-        <Table
-          components={components}
-          columns={columns}
-          dataSource={filteredData}
-          rowKey="id"
-          pagination={{
-            pageSize: 10,
-          }}
-          scroll={{ x: "max-content" }}
-          className="custom-table"
-        />
-      </div>
+   <div className="flex-1 overflow-auto pt-16 mt-3">
+ 
+  <div className="overflow-x-auto min-w-full p-0">
+    <Table
+      components={components}
+      columns={columns}
+      dataSource={filteredData}
+      rowKey="id"
+      pagination={{ pageSize: 10 }}
+      scroll={{ x: 1300 }}   // scroll value as fixed px
+      className="custom-table"
+    />
+  </div>
+</div>
+
 
       {/* Modals */}
       <PDFModal
