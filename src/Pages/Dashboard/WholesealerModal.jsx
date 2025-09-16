@@ -22,7 +22,7 @@ export const AddWholesealerModal = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg w-3/4 md:w-1/2  relative">
-        <h2 className="text-xl font-semibold mb-4">Add Add Wholesealer</h2>
+        <h2 className="text-xl font-semibold mb-4">Add Add Wholesaler</h2>
         <hr />
         <div className=" flex flex-col md:flex-row gap-6 mt-2">
           <div className="w-full md:w-3/5">

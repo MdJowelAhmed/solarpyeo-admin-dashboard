@@ -13,20 +13,21 @@ export const TableColumns = (actionHandlers) => {
     showAcceptModal,
     showJuryModal,
     showEditModal,
-    handleReject
+    handleReject,
+    directAccept,
   } = actionHandlers;
 
-//   const handleRejectConfirm = (record) => {
-//     Modal.confirm({
-//       title: 'Are you sure?',
-//       content: 'Do you want to reject this submission?',
-//       okText: 'Yes, Reject',
-//       cancelText: 'Cancel',
-//       onOk() {
-//         handleReject(record);
-//       }
-//     });
-//   };
+  //   const handleRejectConfirm = (record) => {
+  //     Modal.confirm({
+  //       title: 'Are you sure?',
+  //       content: 'Do you want to reject this submission?',
+  //       okText: 'Yes, Reject',
+  //       cancelText: 'Cancel',
+  //       onOk() {
+  //         handleReject(record);
+  //       }
+  //     });
+  //   };
 
   return [
     {
@@ -89,7 +90,6 @@ export const TableColumns = (actionHandlers) => {
           <Tooltip title="View PDF">
             <Button
               type="primary"
-            //   icon={<FaFilePdf />}
               onClick={() => showPDFModal(record)}
               size="large"
             >
@@ -97,13 +97,12 @@ export const TableColumns = (actionHandlers) => {
             </Button>
           </Tooltip>
 
-          {/* Accept Button - Only for initial submissions */}
+          {/* Accept Button - Only for Pending/Running submissions */}
           {(record.status === "Running" || record.status === "Pending") && (
             <Tooltip title="Send to Jury">
               <Button
-                onClick={() => showAcceptModal(record)}
+                onClick={() => directAccept(record)}
                 size="large"
-
                 style={{
                   backgroundColor: "#52c41a",
                   borderColor: "#52c41a",
@@ -115,33 +114,12 @@ export const TableColumns = (actionHandlers) => {
             </Tooltip>
           )}
 
-          {/* Jury Review Button - For sent to jury cases */}
-          {record.status === "Sent to Jury" && (
-            <Tooltip title="Submit Jury Decision">
-              <Button
-                icon={<MdGavel />}
-                onClick={() => showJuryModal(record)}
-                size="large"
-
-                style={{
-                  backgroundColor: "#722ed1",
-                  borderColor: "#722ed1",
-                  color: "white",
-                }}
-              >
-                Jury
-              </Button>
-            </Tooltip>
-          )}
-
-          {/* Edit Button - Only for 3 of 3 completed cases */}
+          {/* Final Review Button */}
           {record.status === "Final Review" && (
             <Tooltip title="Final Edit">
               <Button
-                // icon={<FaEdit />}
                 onClick={() => showEditModal(record)}
                 size="large"
-
                 style={{
                   backgroundColor: "#13c2c2",
                   borderColor: "#13c2c2",
@@ -153,13 +131,14 @@ export const TableColumns = (actionHandlers) => {
             </Tooltip>
           )}
 
-          {/* Reject Button - For non-finalized cases */}
-          {!["Rejected", "Finalized"].includes(record.status) && (
+          {/* Reject Button - Only if not rejected/finalized/sent */}
+          {(
+            record.status === "Pending"
+          ) && (
             <Tooltip title="Reject">
               <Button
                 onClick={() => handleReject(record)}
                 size="large"
-
                 style={{
                   backgroundColor: "#f5222d",
                   borderColor: "#f5222d",

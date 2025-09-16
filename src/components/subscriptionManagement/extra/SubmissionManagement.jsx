@@ -7,21 +7,18 @@ import {
   Tag,
   Tooltip,
   message,
-  Modal
+  Modal,
 } from "antd";
 import { FaFilePdf, FaEdit } from "react-icons/fa";
 import { MdGavel } from "react-icons/md";
 import { sampleData } from "./sampleData";
 import { TableColumns } from "./CulomsTable";
-// import { PDFModal } from "../modals";
-import { AcceptModal, EditModal, JuryModal, PDFModal } from "./GeneratePDFContent ";
-// import { AcceptModal, EditModal, JuryModal, PDFModal } from "../modals";
-// import { sampleData } from './data/sampleData';
-// import { tableColumns } from './components/TableColumns';
-// import { PDFModal } from './modals/PDFModal';
-// import { AcceptModal } from './modals/AcceptModal';
-// import { JuryModal } from './modals/JuryModal';
-// import { EditModal } from './modals/EditModal';
+import {
+  AcceptModal,
+  EditModal,
+  JuryModal,
+  PDFModal,
+} from "./GeneratePDFContent ";
 
 const { Option } = Select;
 
@@ -80,6 +77,23 @@ const SubmissionManagementCom = () => {
     message.success("Case sent to jury for review!");
   };
 
+  // Accept Function with Confirmation
+  const directAccept = (record) => {
+    Modal.confirm({
+      title: "Are you sure?",
+      content: "Do you want to accept this submission and send it to jury?",
+      okText: "Yes, Accept",
+      cancelText: "Cancel",
+      onOk() {
+        const updatedData = data.map((item) =>
+          item.id === record.id ? { ...item, status: "Sent to Jury" } : item
+        );
+        setData(updatedData);
+        message.success("Case sent to jury successfully!");
+      },
+    });
+  };
+
   const handleJurySubmit = (juryDecision, juryReason) => {
     if (!juryDecision || !juryReason.trim()) {
       message.error("Please provide both decision and reason!");
@@ -88,25 +102,29 @@ const SubmissionManagementCom = () => {
 
     const updatedData = data.map((item) => {
       if (item.id === selectedRecord.id) {
-        const newFeedback = [...(item.juryFeedback || []), {
-          jurorId: (item.juryFeedback?.length || 0) + 1,
-          decision: juryDecision,
-          reason: juryReason
-        }];
-        
+        const newFeedback = [
+          ...(item.juryFeedback || []),
+          {
+            jurorId: (item.juryFeedback?.length || 0) + 1,
+            decision: juryDecision,
+            reason: juryReason,
+          },
+        ];
+
         const newVoteCount = newFeedback.length;
-        const newStatus = newVoteCount === 3 ? "Final Review" : "Under Jury Review";
-        
+        const newStatus =
+          newVoteCount === 3 ? "Final Review" : "Under Jury Review";
+
         return {
           ...item,
           juryFeedback: newFeedback,
           jurorVote: `${newVoteCount} of 3`,
-          status: newStatus
+          status: newStatus,
         };
       }
       return item;
     });
-    
+
     setData(updatedData);
     message.success("Jury decision submitted successfully!");
     return true;
@@ -120,12 +138,12 @@ const SubmissionManagementCom = () => {
           status: "Finalized",
           finalDecisions: decisions,
           adminComments: formValues.adminComments,
-          finalResult: formValues.finalResult
+          finalResult: formValues.finalResult,
         };
       }
       return item;
     });
-    
+
     setData(updatedData);
     message.success("Final decision submitted successfully!");
     return true;
@@ -133,17 +151,17 @@ const SubmissionManagementCom = () => {
 
   const handleReject = (record) => {
     Modal.confirm({
-      title: 'Are you sure?',
-      content: 'Do you want to reject this submission?',
-      okText: 'Yes, Reject',
-      cancelText: 'Cancel',
+      title: "Are you sure?",
+      content: "Do you want to reject this submission?",
+      okText: "Yes, Reject",
+      cancelText: "Cancel",
       onOk() {
         const updatedData = data.map((item) =>
           item.id === record.id ? { ...item, status: "Rejected" } : item
         );
         setData(updatedData);
         message.success("Submission rejected!");
-      }
+      },
     });
   };
 
@@ -152,7 +170,9 @@ const SubmissionManagementCom = () => {
     showAcceptModal,
     showJuryModal,
     showEditModal,
-    handleReject
+    handleReject,
+    handleReject,
+    directAccept,
   };
 
   const components = {
@@ -224,7 +244,7 @@ const SubmissionManagementCom = () => {
           pagination={{
             pageSize: 10,
           }}
-          scroll={{ x: 'max-content' }}
+          scroll={{ x: "max-content" }}
           className="custom-table"
         />
       </div>
