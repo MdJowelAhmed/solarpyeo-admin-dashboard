@@ -389,7 +389,7 @@ export default function MonthlyStatsChart() {
           <Option value="Area">Area Chart</Option>
         </Select>
 
-        <Button className="bg-primary text-white" onClick={exportToCSV}>Export Report</Button>
+        {/* <Button className="bg-primary text-white" onClick={exportToCSV}>Export Report</Button> */}
       </div>
 
       {/* Chart */}
