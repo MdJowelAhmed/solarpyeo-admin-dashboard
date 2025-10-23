@@ -4,14 +4,45 @@ import { useNavigate } from "react-router-dom";
 import FormItem from "../../components/common/FormItem";
 import image4 from "../../assets/image4.png"
 import googleIcon from "../../assets/google-icon.png"
+import { useLoginMutation } from "../../redux/apiSlices/authSlice";
+import toast from "react-hot-toast";
 // import Cookies from "js-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
-    navigate("/");
-    // Cookies.set('token', token, { expires: 7 })
+    const [login, { isLoading, isSuccess, error, data }] = useLoginMutation();
+
+    const onFinish = async (values) => {
+    try {
+      // Call the login mutation with email and password
+      const response = await login({
+        email: values.email,
+        password: values.password,
+      }).unwrap();
+      
+      if (response.success) {
+        const token = response.data.accessToken;
+        localStorage.setItem("token", token);
+        
+        if(response.data.accessToken){
+          navigate("/");
+        }
+        // Decode token to get user role
+        // const decoded = jwtDecode(token);
+        
+        // // Navigate based on role
+        // if (decoded.role === "ADMIN") {
+        //   navigate("/category-management");
+        // } else if (decoded.role === "SUPER_ADMIN") {
+        //   navigate("/");
+        // }
+      }
+    } catch (err) {
+      console.error("Login failed:", err);
+      toast.error(err);
+      // Error handling could be improved with user feedback
+    }
   };
 
   return (
